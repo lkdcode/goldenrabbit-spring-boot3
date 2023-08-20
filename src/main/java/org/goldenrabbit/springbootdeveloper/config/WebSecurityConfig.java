@@ -1,6 +1,5 @@
 package org.goldenrabbit.springbootdeveloper.config;
 
-import lombok.RequiredArgsConstructor;
 import org.goldenrabbit.springbootdeveloper.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
-@RequiredArgsConstructor
 @Configuration
 public class WebSecurityConfig {
-
-    private final UserDetailService userService;
 
     @Bean // 스프링 시큐리티 기능 비활성화
     public WebSecurityCustomizer configure() {
@@ -51,7 +47,7 @@ public class WebSecurityConfig {
     public AuthenticationManager authenticationManager( // 사용자 정보를 가져올 서비스를 재정의하건, 인증 방법, 예를 들어 LDAP, JDBC 기반 인증 등을 설정
                                                         HttpSecurity http,
                                                         BCryptPasswordEncoder bCryptPasswordEncoder,
-                                                        UserDetailService userDetailService
+                                                        UserDetailService userService
     ) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userService) // 사용자 정보를 가져올 서비스를 설정, 이 때 반드시 UserDetailsService 를 구현해야함
